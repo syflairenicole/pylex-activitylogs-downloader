@@ -65,7 +65,7 @@ function getServerId() {
 async function saveActivityLogs(cursor, limit, serverId) {
     if (panelRegex.test(domain) != true) return console.warn("Access panel at https://free.pylexnodes.net or https://pro.pylexnodes.net");
     
-    const serverId = getServerId() || serverId;
+    serverId = getServerId() || serverId;
     if (!serverId) return console.log("Please access your server first.");
 
     if (savingActivityLogs) return console.warn("Still fetching activity logs, please wait.");
