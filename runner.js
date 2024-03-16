@@ -7,8 +7,6 @@ const site = protocol + "//" + domain;
 const logsAPI = "/api/client/servers/(id)/activity?sort=-timestamp&page=(page)&include[]=actor";
 const panelRegex = /^(free|pro)\.pylexnodes.net$/;
 
-var savingActivityLogs = savingActivityLogs || false;
-
 function jsonSaveToFile(data, fileName) {
     const text = JSON.stringify(data);
     const blob = new Blob([text], {
@@ -65,13 +63,8 @@ async function saveActivityLogs(cursor, limit) {
     const serverId = getServerId();
     if (!serverId) return console.log("Please access your server first.");
 
-    if (savingActivityLogs) return console.warn("Still fetching activity logs, please wait.");
-    savingActivityLogs = true;
-
     const activityLogs = await getActivityLogs(serverId, cursor || 1, limit || 1);
     if (activityLogs) jsonSaveToFile(activityLogs, `pylex-${serverId}-activity`);
-
-    savingActivityLogs = false;
 };
 
 let cursor = null;
