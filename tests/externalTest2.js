@@ -12,5 +12,5 @@ fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downl
         document.body.appendChild(scriptElement);
     } catch (errorMsg) {
         console.warn("Extension could not be loaded:", errorMsg);
-    });
+    };
 });
