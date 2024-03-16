@@ -1,8 +1,8 @@
-var waitPromise = async function(ms) {
+const waitPromise = async function(ms) {
     return new Promise((resolve, reject) => setTimeout(resolve, ms || 100));
 };
 
-var getElementsByAttribute = function(tag, attr, value) {
+const getElementsByAttribute = function(tag, attr, value) {
     if ('querySelectorAll' in document) {
         return document.querySelectorAll((tag || "") + "["+attr+"="+`"${value}"`+"]" );
     } else {
@@ -21,7 +21,7 @@ var getElementsByAttribute = function(tag, attr, value) {
     }
 };
 
-var downloadActivityLogs = function(cursor, pagelimit, serverId) {
+const downloadActivityLogs = function(cursor, pagelimit, serverId) {
     fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downloader/main/runner.js").then(async data => {
         let runnerJS = await data.text();
         if (runnerJS) {
@@ -37,6 +37,11 @@ var loadExtension = async function() {
     if (document.pylexActivityLogsExtension) return console.warn("Extension already loaded.");
     document.pylexActivityLogsExtension = true;
     document.downloadActivityLogs = downloadActivityLogs;
+
+    while (true) {
+        await waitPromise(2000);
+        if (getElementsByAttribute("a", "href^", "/server/")?.length > 0) break;
+    };
 
     const protocol = document.location.protocol;
     const domain = document.domain;
@@ -74,10 +79,4 @@ var loadExtension = async function() {
     };
 };
 
-(async () => {
-    while (true) {
-        await waitPromise(2000);
-        if (getElementsByAttribute("a", "href^", "/server/")?.length > 0) break;
-    };
-    loadExtension();
-})();
+loadExtension();
