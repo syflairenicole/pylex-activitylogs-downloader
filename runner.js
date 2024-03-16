@@ -8,7 +8,7 @@ const logsAPI = "/api/client/servers/(id)/activity?sort=-timestamp&page=(page)&i
 const panelRegex = /^(free|pro)\.pylexnodes.net$/;
 
 if (typeof savingActivityLogs == "undefined") {
-    savingActivityLogs = false;
+    var savingActivityLogs = false;
 };
 
 function jsonSaveToFile(data, fileName) {
