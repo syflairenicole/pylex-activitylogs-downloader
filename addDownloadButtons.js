@@ -35,9 +35,9 @@ const downloadActivityLogs = function(cursor, pagelimit, serverId) {
 
 var loadExtension = async function() {
     if (window.location.pathname.includes("/server/") || window.location.pathname.includes("/account/")) return;
-    if (document.pylexActivityLogsExtension) return console.warn("Extension already loaded.");
-    document.pylexActivityLogsExtension = true;
-    document.downloadActivityLogs = downloadActivityLogs;
+    if (window.pylexActivityLogsExtension) return console.warn("Extension already loaded.");
+    window.pylexActivityLogsExtension = true;
+    window.downloadActivityLogs = downloadActivityLogs;
 
     while (true) {
         await waitPromise(2000);
@@ -71,11 +71,11 @@ var loadExtension = async function() {
                 serverCard.style.marginRight = "50px";
                 serverCard.style.overflow = "visible";
                 element.hidden = false;
-                element.outerHTML = elementTemplate.replace("(code)", `event.stopPropagation(); if (confirm('Do you want to download activity logs for ${serverName} (id: ${identifier})?')) { document.downloadActivityLogs(1, 999, '${identifier}'); alert('Fetching and downloading activity logs, press continue...'); }; `);
+                element.outerHTML = elementTemplate.replace("(code)", `event.stopPropagation(); if (confirm('Do you want to download activity logs for ${serverName} (id: ${identifier})?')) { window.downloadActivityLogs(1, 999, '${identifier}'); alert('Fetching and downloading activity logs, press continue...'); }; `);
             });
         });
     } catch(msg) { console.warn(msg);
-        document.pylexActivityLogsExtension = false;
+        window.pylexActivityLogsExtension = false;
         alert("Failed to fetch servers from API.");
     };
 };
@@ -87,7 +87,7 @@ var bodyList = document.querySelector("body");
 var pathObserver = new MutationObserver(() => {
     if (lastHref != document.location.href) {
         lastHref = document.location.href;
-        document.pylexActivityLogsExtension = false;
+        window.pylexActivityLogsExtension = false;
         loadExtension();
     };
 });
