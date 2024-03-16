@@ -65,11 +65,11 @@ var loadExtension = async function() {
                 serverCard.style.marginRight = "50px";
                 serverCard.style.overflow = "visible";
                 element.hidden = false;
-                element.outerHTML = elementTemplate.replace("(code)", `if (confirm('Do you want to download activity logs for ${serverName} (id: ${identifier})?')) { document.downloadActivityLogs(1, 999, '${identifier}'); alert('Fetching and downloading activity logs, press ok...'); event.stopPropagation(); }; `);
+                element.outerHTML = elementTemplate.replace("(code)", `if (confirm('Do you want to download activity logs for ${serverName} (id: ${identifier})?')) { document.downloadActivityLogs(1, 999, '${identifier}'); event.stopPropagation(); alert('Fetching and downloading activity logs, press ok...'); }; `);
             });
         });
     } catch(msg) { console.warn(msg);
-        window.pylexActivityLogsExtension = false;
+        document.pylexActivityLogsExtension = false;
         alert("Failed to fetch servers from API.");
     };
 };
