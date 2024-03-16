@@ -4,7 +4,13 @@
 // Add buttons to download activity logs for servers shown on the panel dashboard
 // https://free.pylexnodes.net or https://pro.pylexnodes.net
 
-fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downloader/main/addDownloadButtons.js").then(async data => {
-    const runnerJS = await data.text();
-    eval(runnerJS);
+fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downloader/main/addDownloadButtons.js").then(data => {
+    try {
+        const buttonsExtension = await data.text();
+        const scriptElement = document.createElement("script");
+        scriptElement.innerText = buttonsExtension;
+        document.body.appendChild(scriptElement);
+    } catch (errorMsg) {
+        console.warn("Extension could not be loaded:", errorMsg);
+    });
 });
