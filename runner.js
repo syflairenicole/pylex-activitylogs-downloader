@@ -71,7 +71,7 @@ async function saveActivityLogs(cursor, limit) {
     const activityLogs = await getActivityLogs(serverId, cursor || 1, limit || 1);
     if (activityLogs) jsonSaveToFile(activityLogs, `pylex-${serverId}-activity`);
 
-    (savingActivityLogs) = false;
+    savingActivityLogs = false;
 };
 
 let cursor = null;
