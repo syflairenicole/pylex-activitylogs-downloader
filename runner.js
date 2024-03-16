@@ -62,10 +62,10 @@ function getServerId() {
     if (pathName[1] == "server" && pathName[2] !="") return pathName[2];
 };
 
-async function saveActivityLogs(cursor, limit) {
+async function saveActivityLogs(cursor, limit, serverId) {
     if (panelRegex.test(domain) != true) return console.warn("Access panel at https://free.pylexnodes.net or https://pro.pylexnodes.net");
     
-    const serverId = getServerId();
+    const serverId = getServerId() || serverId;
     if (!serverId) return console.log("Please access your server first.");
 
     if (savingActivityLogs) return console.warn("Still fetching activity logs, please wait.");
@@ -79,15 +79,18 @@ async function saveActivityLogs(cursor, limit) {
 
 let cursor = null;
 let limit = null;
+let serverId = null;
 
 //eval:cursor;
 //eval:limit;
+//eval:server_id;
 
 /* 
  - eval arguments for external loaders (to change the variables)
  - usage:
      evalString.replace("//eval:cursor", "cursor = number");
      evalString.replace("//eval:limit", "limit = number");
+     evalString.replace("//eval:server_id", "serverId = string");
 */
 
-saveActivityLogs(cursor, limit);
+saveActivityLogs(cursor, limit, serverId);
