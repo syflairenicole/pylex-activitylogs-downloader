@@ -21,23 +21,21 @@ var getElementsByAttribute = function(tag, attr, value) {
     };
 };
 
-var downloadActivityLogs = function(cursor, pagelimit, serverId) {
-    fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downloader/main/runner.js").then(async data => {
-        let runnerJS = await data.text();
-        if (runnerJS) {
-            runnerJS = runnerJS.replace("//eval:cursor", `cursor = ${cursor}`);
-            runnerJS = runnerJS.replace("//eval:limit", `limit = ${pagelimit}`);
-            runnerJS = runnerJS.replace("//eval:server_id", `serverId = "${serverId}"`);
-            eval(runnerJS);
-        };
-    });
-};
-
 var loadExtension = async function() {
     if (window.location.pathname.includes("/server") || window.location.pathname.includes("/account")) return;
     if (window.pylexActivityLogsExtension) return console.warn("Extension already loaded.");
     window.pylexActivityLogsExtension = true;
-    window.downloadActivityLogs = downloadActivityLogs;
+    window.downloadActivityLogs = function(cursor, pagelimit, serverId) {
+        fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downloader/main/runner.js").then(async data => {
+            let runnerJS = await data.text();
+            if (runnerJS) {
+                runnerJS = runnerJS.replace("//eval:cursor", `cursor = ${cursor}`);
+                runnerJS = runnerJS.replace("//eval:limit", `limit = ${pagelimit}`);
+                runnerJS = runnerJS.replace("//eval:server_id", `serverId = "${serverId}"`);
+                eval(runnerJS);
+            };
+        });
+    };
 
     while (true) {
         await waitPromise(2000);
