@@ -7,18 +7,18 @@ const getElementsByAttribute = function(tag, attr, value) {
         return document.querySelectorAll((tag || "") + "["+attr+"="+`"${value}"`+"]" );
     } else {
         var els = document.getElementsByTagName("*"),
-            result = []
+            result = [];
 
         for (var i=0, _len=els.length; i < _len; i++) {
-            var el = els[i]
+            var el = els[i];
 
             if (el.hasAttribute(attr)) {
-                if (el.getAttribute(attr) === value) result.push(el)
-            }
-        }
+                if (el.getAttribute(attr) === value) result.push(el);
+            };
+        };
 
-        return result
-    }
+        return result;
+    };
 };
 
 const downloadActivityLogs = function(cursor, pagelimit, serverId) {
