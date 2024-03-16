@@ -7,8 +7,8 @@ const site = protocol + "//" + domain;
 const logsAPI = "/api/client/servers/(id)/activity?sort=-timestamp&page=(page)&include[]=actor";
 const panelRegex = /^(free|pro)\.pylexnodes.net$/;
 
-if (typeof running == "undefined") {
-    running = false;
+if (typeof savingActivityLogs == "undefined") {
+    savingActivityLogs = false;
 };
 
 function jsonSaveToFile(data, fileName) {
