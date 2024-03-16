@@ -34,12 +34,13 @@ const downloadActivityLogs = function(cursor, pagelimit, serverId) {
 };
 
 var loadExtension = async function() {
+    if (!window.location.pathname.includes("/server/")) return;
     if (document.pylexActivityLogsExtension) return console.warn("Extension already loaded.");
     document.pylexActivityLogsExtension = true;
     document.downloadActivityLogs = downloadActivityLogs;
 
     while (true) {
-        await waitPromise(1250);
+        await waitPromise(2000);
         if (getElementsByAttribute("a", "href^", "/server/")?.length > 0) break;
     };
 
