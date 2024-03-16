@@ -34,7 +34,7 @@ var downloadActivityLogs = function(cursor, pagelimit, serverId) {
 };
 
 var loadExtension = async function() {
-    if (window.location.pathname.includes("/server/") || window.location.pathname.includes("/account/")) return;
+    if (window.location.pathname.includes("/server") || window.location.pathname.includes("/account")) return;
     if (window.pylexActivityLogsExtension) return console.warn("Extension already loaded.");
     window.pylexActivityLogsExtension = true;
     window.downloadActivityLogs = downloadActivityLogs;
