@@ -6,8 +6,10 @@ fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downl
     if (runnerJS) {
       let cursor = 1; // Starting page
       let pagelimit = 1; // Max pages to return
-      runnerJS.replace("//eval:cursor", cursor);
-      runnerJS.repalce("//eval:limit", pagelimit);
-      eval(runnerJS);
+
+      runnerJS.replace("//eval:cursor", `cursor = ${cursor}`);
+      runnerJS.replace("//eval:limit", `limit = ${pagelimit}`);
+
+      eval(runnerJS); // A json file with a list of activity logs will be downloaded
     };
 });
