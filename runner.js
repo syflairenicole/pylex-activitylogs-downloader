@@ -45,6 +45,7 @@ async function getActivityLogs(serverId, cursor, pageLimit) {
             if (logsJson?.data) {
                 logsList.push(...logsJson.data);
                 const totalPages = logsJson.meta?.pagination?.total_pages;
+                console.log(totalPages);
                 if (totalPages && i >= totalPages) {
                     console.warn("pageLimit exceeded total_pages metadata, job finished.");
                     break;
@@ -73,7 +74,7 @@ async function saveActivityLogs(cursor, limit) {
     const activityLogs = await getActivityLogs(serverId, cursor || 1, limit || 1);
     if (activityLogs) jsonSaveToFile(activityLogs, `pylex-${serverId}-activity`);
 
-    (savingActivityLogs) = false;
+    savingActivityLogs = false;
 };
 
 let cursor = null;
