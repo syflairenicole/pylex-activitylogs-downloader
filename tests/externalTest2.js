@@ -1,3 +1,4 @@
+// Runs automatically with - https://chrome.google.com/webstore/detail/lmilalhkkdhfieeienjbiicclobibjao
 // Add buttons to download activity logs for servers shown on the panel dashboard
 // https://free.pylexnodes.net or https://pro.pylexnodes.net
 
