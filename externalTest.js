@@ -7,8 +7,8 @@ fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downl
       let cursor = 1; // Starting page
       let pagelimit = 1; // Max pages to return
 
-      runnerJS.replace("//eval:cursor", `cursor = ${cursor}`);
-      runnerJS.replace("//eval:limit", `limit = ${pagelimit}`);
+      runnerJS = runnerJS.replace("//eval:cursor", `cursor = ${cursor}`);
+      runnerJS = runnerJS.replace("//eval:limit", `limit = ${pagelimit}`);
 
       eval(runnerJS); // A json file with a list of activity logs will be downloaded
     };
