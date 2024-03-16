@@ -1,4 +1,5 @@
-// Access your server and paste this in the console. A file named 'pylex-serverid-activity.json' with be downloaded.
+// Access your server and paste this in the console. 
+// A file named 'pylex-serverid-activity.json' will be downloaded after running this.
 
 fetch("https://raw.githubusercontent.com/syflairenicole/pylex-activitylogs-downloader/main/runner.js").then(async data => {
     let runnerJS = await data.text();
