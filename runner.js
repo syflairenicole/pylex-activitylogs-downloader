@@ -47,7 +47,7 @@ async function getActivityLogs(serverId, cursor, pageLimit) {
                 const totalPages = logsJson.meta?.pagination?.total_pages;
                 console.log(totalPages);
                 if (totalPages && i >= totalPages) {
-                    console.warn("pageLimit exceeded total_pages metadata, job finished.");
+                    console.warn("pageLimit exceeded/reached total_pages metadata, job finished.");
                     break;
                 };
             };
