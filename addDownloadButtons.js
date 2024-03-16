@@ -34,21 +34,18 @@ const downloadActivityLogs = function(cursor, pagelimit, serverId) {
 };
 
 var loadExtension = async function() {
-    if (window.location.pathname.includes("/server")) return;
     if (document.pylexActivityLogsExtension) return console.warn("Extension already loaded.");
     document.pylexActivityLogsExtension = true;
     document.downloadActivityLogs = downloadActivityLogs;
 
     while (true) {
-        await waitPromise(2000);
+        await waitPromise(1250);
         if (getElementsByAttribute("a", "href^", "/server/")?.length > 0) break;
     };
 
     const protocol = document.location.protocol;
     const domain = document.domain;
     const site = protocol + "//" + domain;
-
-    if 
     
     const serversAPI = "/api/client";
     const elementTemplate = `<a width="60px" height="60px" onclick="(code)" href="javascript:void(0)" style="position:absolute;margin-left: 100.5%;background-color:rgb(70,70,70);width: 40px;height: 60px;"><img width="60" height="60" src="https://img.icons8.com/ios/50/aaaaaa/download--v1.png" alt="download--v1" style="
@@ -83,3 +80,15 @@ var loadExtension = async function() {
 };
 
 loadExtension();
+
+var lastHref = document.location.href;
+var bodyList = document.querySelector("body");
+var pathObserver = new MutationObserver(() => {
+    if (lastHref != document.location.href) {
+        lastHref = document.location.href;
+        document.pylexActivityLogsExtension = false;
+        loadExtension();
+    };
+});
+
+pathObserver.observe(bodyList, {childList: true, subtree: true});
